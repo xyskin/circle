@@ -8,7 +8,7 @@ public class MagicBoots : MonoBehaviour {
 	public float movementSpeed; //2
 	public float rotationSpeedGrounded; //10
 	public float rotationSpeedFly; //1
-	
+	public Rigidbody rb;
 		
 	private float distForward;
 	private float distDown;
@@ -91,7 +91,7 @@ public class MagicBoots : MonoBehaviour {
 		if (Input.GetKeyDown("space") && isGrounded)
 		{
 			Debug.Log ("space!");
-			rigidbody.AddForce(transform.up * gravitySpeed * 1.2f); 
+			rb.AddForce(transform.up * gravitySpeed * 1.2f); 
 			isGrounded = false;
 			rotationSpeed = rotationSpeedFly;
 			anim.CrossFade("jump");
@@ -137,7 +137,7 @@ public class MagicBoots : MonoBehaviour {
 			}				
 	
 		//gravity
-		rigidbody.AddForce(-transform.up * Time.deltaTime * gravitySpeed); 
+		rb.AddForce(-transform.up * Time.deltaTime * gravitySpeed); 
 		
 		
 	}
