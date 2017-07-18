@@ -19,22 +19,14 @@ public class MagicBoots : MonoBehaviour {
 	public bool isGrounded;
 	
 	private bool move;
-	private Animation anim;
+
 	
 	
 	
 	void Start(){
-		
-		//setup character animations
-		anim = GetComponentInChildren<Animation>();
-		if (anim != null)	{
-			anim["run"].speed =0.5f; anim["run"].wrapMode = WrapMode.Loop;
-			anim["runback"].speed =0.5f; anim["runback"].wrapMode = WrapMode.Loop;
-			anim["runleft"].speed =0.5f; anim["runleft"].wrapMode = WrapMode.Loop;
-			anim["runright"].speed =0.5f; anim["runright"].wrapMode = WrapMode.Loop;
-			anim["idle"].wrapMode = WrapMode.Loop;		
-			anim["jump"].speed =1.5f;
-		}
+        rb = GetComponent<Rigidbody>();
+        //setup character animations
+     
 		
 		isGrounded = true;
 		rotationSpeed = rotationSpeedGrounded;	
@@ -57,14 +49,14 @@ public class MagicBoots : MonoBehaviour {
 			transform.position += transform.forward * movementSpeed * Time.deltaTime;
 			move = true;
 			
-			if (isGrounded && !anim.IsPlaying("run")) anim.CrossFade("run");			
+				
 		}
 		else if ((Input.GetAxis("Vertical"))<0)
 		{			
 			//Back			
 			transform.position -= transform.forward * movementSpeed * Time.deltaTime;
 			move = true;
-			if (isGrounded && !anim.IsPlaying("runback")) anim.CrossFade("runback");
+		
 		}
 		
 		if ((Input.GetAxis("Horizontal"))<0)					
@@ -72,7 +64,7 @@ public class MagicBoots : MonoBehaviour {
 			//Left		
 			transform.RotateAround (transform.up, Input.GetAxis("Horizontal") * 3 * Time.deltaTime);			
 			move = true;			
-			if (isGrounded && !anim.IsPlaying("runleft") && !anim.IsPlaying("run") && !anim.IsPlaying("runback") ) anim.CrossFade("runleft");
+		
 			
 		}
 		else if ((Input.GetAxis("Horizontal"))>0)					
@@ -80,11 +72,10 @@ public class MagicBoots : MonoBehaviour {
 			//Right			
 			transform.RotateAround (transform.up, Input.GetAxis("Horizontal") * 3 * Time.deltaTime);
 			move = true;
-			if (isGrounded && !anim.IsPlaying("runright") && !anim.IsPlaying("run") && !anim.IsPlaying("runback") )anim.CrossFade("runright");
+
 		}
 		
 		//stay
-		if (!move && isGrounded && (anim.IsPlaying("runback") || anim.IsPlaying("run") || anim.IsPlaying("runleft") || anim.IsPlaying("runright") || anim["jump-land"].time > 0.34f)) anim.CrossFade("idle");
 		
 		
 		//jump
@@ -94,7 +85,7 @@ public class MagicBoots : MonoBehaviour {
 			rb.AddForce(transform.up * gravitySpeed * 1.2f); 
 			isGrounded = false;
 			rotationSpeed = rotationSpeedFly;
-			anim.CrossFade("jump");
+			
 		}
 		
 		if (Input.GetKeyDown(KeyCode.Escape))
@@ -108,7 +99,8 @@ public class MagicBoots : MonoBehaviour {
 			RaycastHit hitForward;
 			if (Physics.SphereCast(transform.position, 0.25f, -transform.up + transform.forward, out hitForward, 5, RayCastLayerMask))
 			{
-			distForward = hitForward.distance;				
+			distForward = hitForward.distance;		
+            	
 			}
 			distDown = Mathf.Infinity;
 			RaycastHit hitDown;
@@ -153,7 +145,7 @@ public class MagicBoots : MonoBehaviour {
 			isGrounded = true;
 			rotationSpeed = rotationSpeedGrounded;
 			
-			if (!move && (anim.IsPlaying("runback") || anim.IsPlaying("run") || anim.IsPlaying("runleft") || anim.IsPlaying("runright") || anim["jump"].time == 0 )) anim.CrossFade("jump-land");
+		
 		}
 		
 		
