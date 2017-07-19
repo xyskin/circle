@@ -19,9 +19,7 @@ public class Normal : MonoBehaviour {
         if (Physics.BoxCast(transform.position, Vector3.one, Vector3.down,out hitDown,transform.rotation,0.1f))
         {
             Debug.Log(hitDown.collider.name);
-            Vector3.down = hitDown.normal;
-             
-            rb.AddForceAtPosition(-hitDown.normal,transform.position);
+            transform.rotation = Quaternion.FromToRotation(Vector3.up, hitDown.normal);
         }
     }
 }
