@@ -63,8 +63,9 @@ public class Grivaty : MonoBehaviour {
         
         Debug.Log("Change G " + Physics.gravity);
         Debug.DrawRay(this.transform.position, Physics.gravity * 1000.0f, Color.green);
-        Camera.main.transform.LookAt(this.transform.position);
-        Camera.main.transform.up = tf.up;
+        float mousX = Input.GetAxis("Mouse X") * 20;
+        Camera.main.transform.RotateAround(this.transform.position, tf.up, mousX);
+        //Camera.main.transform.rotation=
     }
 
 }
