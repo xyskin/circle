@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Move : MonoBehaviour {
     float force = 10;
-    float minForce = 1f, maxForce = 100f;
+    float minForce = 10f, maxForce = 300f;
     float ratio = 0, ratioPerSec = 0.5f;
     bool hitting = false;
     public Scrollbar scbar;
